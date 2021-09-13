@@ -1,2 +1,3 @@
 # Factory
 hello
+new hello
