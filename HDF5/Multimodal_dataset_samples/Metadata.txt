@@ -1,0 +1,7 @@
+Category: Cat3 
+NLOS Object: Car
+Mobility: Static
+Position: Front
+Speed: 15mph 
+Direction: LR
+Lane: Opposite
