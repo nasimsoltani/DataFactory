@@ -1,11 +1,11 @@
 
-### Run the ML_code using the bash file:
+### Run the DLFramework using the bash file:
 
 Run the bash file as:
-	./run_ML_code.sh exp1 0
+	./run.sh exp1 0
 where **exp1** is variable **$1** in the bash file and represents an optional experiment name, and **0** is variable **$2** in the bash file and represents the GPU ID.
 
-	python -u /home/nasim/UAVFramework/ML_code/top.py \
+	python -u /home/nasim/UAVFramework/DLFramework/top.py \
 	--exp_name $1 \
 	--partition_path /home/nasim/UAV-TVT/PklFiles/cnn1/ \
 	--stats_path /home/nasim/UAV-TVT/PklFiles/cnn1/ \
@@ -48,6 +48,6 @@ where **exp1** is variable **$1** in the bash file and represents an optional ex
 - **patience**: If early stopping is set to true, the training stops after the validation accuracy does not improve for this many consecutive epochs.
 - The last two lines specify where you want to write the output log and error log in the result folder.
 
-The `ML_code` saves the trained model structure and weight, saves logs and a `preds.pkl` file in the experiment folder.
+The `DLFramework` saves the trained model structure and weight, saves logs and a `preds.pkl` file in the experiment folder.
 The slice and accuracy results are reported at the end of `log.out` file.
 
