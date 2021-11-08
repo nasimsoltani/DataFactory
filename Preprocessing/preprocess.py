@@ -15,7 +15,7 @@ import numpy as np
 """ Create a pkl_files folder in your UAV-TVT folder and adjust the paths below before running this script """
 
 mat_address = '/home/nasim/UAV-TVT/mat_files/'
-dataset_address = '/home/nasim/UAV-TVT/pkl_files/cnn1/'  # adjust this to your desired CNN (optional name)
+dataset_address = '/home/nasim/UAV-TVT/pkl_files/exp1/'  
 
 def helper(file):
     data = loadmat(file,struct_as_record=True)
@@ -50,44 +50,24 @@ def create_dataset(mat_address,dataset_address):
     device_list = ['uav1','uav2','uav3','uav4','uav5','uav6','uav7']
     distance_list = ['6ft','9ft','12ft','15ft']
 
-    train_val_list = []
+    train_list = []
+    val_list = []
     label_list = defaultdict(dict)
     test_list = []
 
     print("Creating train/val/test partitions:")
-    # adjust this according to the CNN number ( burst1 for CNN1, CNN2, CNN3, CNN4, 
-    #                                           burst2 for CNN5, CNN6, CNN7, CNN8, 
-    #                                           burst3 for CNN9, CNN10, CNN11, CNN12)
-    # Visualization available in the paper Figure 6
-    
-    # Form the train and validation sets
-    desired_training_burst = 'burst1'      
+        
+    # Form the train and validation sets     
     
     for device in tqdm(device_list):
         for distance in tqdm(distance_list):
-            train_val_files = glob.glob(mat_address + device+'_'+distance+'_'+desired_training_burst+'_'+'*')
-            # sort the train_val_files 
-            sorted_list = []
-            for i in range(1,len(train_val_files)/10+1):
-                for j in range(10):
-                    this_sub_ex = mat_address + device+'_'+distance+'_'+desired_training_burst+'_'+str(i)+'_'+str(j)+'.mat'
-                    #if this_sub_ex in train_val_files:
-                    sorted_list.append(this_sub_ex)
+            all_files = glob.glob(mat_address + device+'_'+distance+'_'+'*')
+            random.shuffle(all_files)
+            train_list += all_files[:int(0.7*len(all_files))]
+            val_list += all_files[int(0.7*len(all_files)):int(0.8*len(all_files))]
+            test_list += all_files[int(0.8*len(all_files)):]
 
-            # now the sorted list is ready
-            # adjust the limit based on the CNN you want to create the training set for:
-            train_val_list += sorted_list[:int(0.25*len(sorted_list))]
             
-            # add to the test set
-            # Form the test list from only burst4
-            test_list += glob.glob(mat_address + device+'_'+distance+'_'+'burst4'+'_'+'*')
-
-
-    # Now train_val_list is ready, shuffle and separate training and validation sets
-    random.shuffle(train_val_list)
-    train_list = train_val_list[:int(0.9*len(train_val_list))]
-    val_list = train_val_list[int(0.9*len(train_val_list)):]
-
     # create labels:
     print("Creating label pickle file:")
     all_mat_list = train_list + val_list + test_list
