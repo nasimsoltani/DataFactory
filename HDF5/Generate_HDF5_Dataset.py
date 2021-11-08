@@ -133,13 +133,6 @@ if __name__ == '__main__':
     metadata_file_path = args.metadata_file_path
     source_dir = args.source_dir
     hdf5_file_name = args.hdf5_file_name
-    
-    
-    # destination_dir   = os.getcwd()
-    # meta_file = os.path.join(os.getcwd(),'FLASH_dataset_samples','Metadata.txt')
-    # source_dir = os.path.join(os.getcwd(),'FLASH_dataset_samples')
-    # hdf5_file_name = "SSSSS.hdf5"
-
 
     create_group_subgroup (destination_dir,hdf5_file_name)  
     write_metadata_from_file (destination_dir , metadata_file_path,hdf5_file_name)
