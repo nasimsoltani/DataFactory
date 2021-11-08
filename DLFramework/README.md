@@ -2,7 +2,9 @@
 ### Run the DLFramework using the bash file:
 
 Run the bash file as:
+
 	./run.sh exp1 0
+
 where **exp1** is variable **$1** in the bash file and represents an optional experiment name, and **0** is variable **$2** in the bash file and represents the GPU ID.
 
 	python -u /home/nasim/UAVFramework/DLFramework/top.py \
