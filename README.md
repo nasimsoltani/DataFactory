@@ -11,14 +11,7 @@ In SigMF, each recorded signal is stored in the form of interleaved IQ values wi
 
 ## Deep Learning Framework
 
-### Preprocessing
-Preprocessing is preparing the already collected dataset for being fed to the neural network. 
-Preprocessing consists of a series of steps such as:
-1. Partitioning the dataset to training, validation, and test sets. 
-2. Calculating mean and standard deviation of the training set, which is later used for z-score standardization.
-3. Creating training and test true labels for each signal.
 
-Before running the preprocessing script, we need to make sure that each signal is stored as a complex sequence with dimensions (1,N) (where N is the number of I/Q samples in the signal, and can be different for different signals) in one single folder. Each example should be named as devicename_A_B_etc.mat. During preprocessing device labels are infered from the first element before '_'.
 
 ### Running the framework
 The ML framework consists of python code that loads the data and 
