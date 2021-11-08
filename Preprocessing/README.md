@@ -16,3 +16,5 @@ The preprocessing step generates 4 pickle files:
 2. `stats.pkl`: Contains information about the dataset including mean and standard deviation of the training set.
 3. `label.pkl`: Contains a dictionary that associates each mat file with a device name (class name).
 4. `device_ids.pkl`: Contains a dictionary that associates each device name with a class index.
+
+These files should all be located in a folder, whose path is an input to the DLFramework.
