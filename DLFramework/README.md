@@ -1,7 +1,16 @@
 
-### Run the DLFramework using the bash file:
+### DLFramework
 
-Run the bash file as:
+The DLFramework takes the path to the 4 .pkl files generated from the preprocessing step and trains and tests the neural network with the parameters that the user specifies. The toppest file in the framework is `top.py` which calls training and test functions.
+
+	top.py			# calls data loaders, training, and test functions.
+	data_generator.py	# contains a version of Keras DataGenerator class, edited for our need. This file returns the training batches along with the corresponding labels.
+	create_model.py		# creates the empty template of the neural network architecture and saves it in a model_file.json file.
+	train_model.py 		# trains the model.
+	test_model.py		# tests the trained model and saves the predictions in a preds.pkl file.
+	NNs 			# a folder containing different neural network architectures.
+
+The user arguments are given to the top.py using a bash script. The bash script is run as:
 
 	./run.sh exp1 0
 
