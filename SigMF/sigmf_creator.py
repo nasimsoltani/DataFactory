@@ -1,8 +1,18 @@
-from scipy.io import loadmat
+from scipy.io import loadmat, savemat
 import glob
 import numpy as np
 import os
 import json
+from tqdm import tqdm
+
+# please edit these paths according to your binary and mat paths
+# your binary file path
+binary_path = '/home/nasim/Downloads/neu_m046p309d/UAV-Sigmf-float16/'
+# your mat file path
+mat_path = '/home/nasim/Downloads/neu_m046p309d/mat_dummy/'
+
+
+
 
 device_list = ['m1001','m1005','m1007','m1008','m1009','m10010','m10011']
 distance_list = ['6ft','9ft','12ft','15ft']
@@ -15,8 +25,9 @@ print uav_list
 cf_dict = {'m1008_6ft':'2476500000', 'm1008_9ft':'2406500000', 'm1008_12ft':'2406500000', 'm1008_15ft':'2406500000', 'm1009_6ft':'2426500000', 'm1009_9ft':'2426500000', 'm1009_12ft':'2426500000', 'm1009_15ft':'2436500000', 'm1007_6ft':'2476500000', 'm1007_9ft':'2476500000', 'm1007_12ft':'2476500000', 'm1007_15ft':'2476500000', 'm1005_6ft':'2406500000', 'm1005_9ft':'2406500000', 'm1005_12ft':'2406500000', 'm1005_15ft':'2406500000', 'm10011_6ft':'2416500000', 'm10011_9ft':'2416500000', 'm10011_12ft':'2416500000', 'm10011_15ft':'2416500000', 'm1001_6ft':'2406500000', 'm1001_9ft':'2406500000', 'm1001_12ft':'2406500000', 'm1001_15ft':'2406500000', 'm10010_6ft':'2406500000', 'm10010_9ft':'2406500000', 'm10010_12ft':'2406500000', 'm10010_15ft':'2416500000'}
 
 
-base_path = '/mnt/nas/nasim/UAV/uav-indoors-processed/'
-binary_base = '/mnt/nas/nasim/UAV/UAV-Sigmf'
+
+
+
 
 """
 import numpy as np
@@ -33,9 +44,9 @@ def create_bin():
     for device,uav in zip(device_list,uav_list):
         for distance in distance_list:
             for burst in [1,2,3,4]:
-                all_mat_list = glob.glob(base_path+device+'/'+distance+'_'+str(burst)+'_'+'*')
+                all_mat_list = glob.glob(mat_path+device+'/'+distance+'_'+str(burst)+'_'+'*')
                 for file_cntr in range(len(all_mat_list)+10):
-                    file_path = base_path+device+'/'+distance+'_'+str(burst)+'_'+str(file_cntr)+'.mat'
+                    file_path = mat_path+device+'/'+distance+'_'+str(burst)+'_'+str(file_cntr)+'.mat'
                     if file_path in all_mat_list:
                         # now convert to bin format:
                         mat_file_content = loadmat(file_path)
@@ -71,7 +82,7 @@ def create_bin():
                         bin_file_name = uav+'_'+distance+'_'+'burst'+str(burst)+'_'+str(file_cntr)+'.bin'
                         print bin_file_name
                         
-                        with open(os.path.join(binary_base,bin_file_name), 'wb') as handle:
+                        with open(os.path.join(binary_path,bin_file_name), 'wb') as handle:
                             handle.write(binary_format)
                         
                         #--------------------------------------------------------------------
@@ -116,7 +127,7 @@ def create_bin():
                         json_file_name = uav+'_'+distance+'_'+'burst'+str(burst)+'_'+str(file_cntr)+'.json'
                         print json_file_name
 
-                        with open(os.path.join(binary_base,json_file_name),'wb') as json_file:
+                        with open(os.path.join(binary_path,json_file_name),'wb') as json_file:
                             json.dump(my_meta, json_file)
                         
                         #--------------------------------------------------------------------
@@ -128,12 +139,46 @@ def create_bin():
                         #print seq
                         #print seq.shape
 
-                        
+def convert_bin_to_mat(binary_path, mat_path):
+
+    # if destination directory does not exist, create it
+    if not os.path.isdir(mat_path):
+        os.mkdir(mat_path)
+    
+    bin_json_list = glob.glob(binary_path+'*')
+
+    for filepath in tqdm(bin_json_list):
+        # do this only if you have a .bin file not a .json file
+        if filepath.endswith('.bin'):
+            # read the .bin file
+            with open (filepath,'rb') as handle:
+                iq_seq = np.fromfile(handle, dtype='<f2')    # (f2 => float16)
+            n_samples = iq_seq.shape[0]/2
+            # separate I and Q
+            IQ_data = np.zeros((n_samples,2),dtype=np.float16)
+            IQ_data[:,0] = iq_seq[range(0, iq_seq.shape[0]-1, 2)]    # load all I-values in dimension 0
+            IQ_data[:,1] = iq_seq[range(1, iq_seq.shape[0], 2)]      # ...and Q-values in dimension 1
+            # convert to Complex I/Q
+            Complex_IQ = IQ_data[:,0] + 1j*IQ_data[:,1]
+
+            # reshape the complex sequence to (1,L)
+            Complex_IQ = np.expand_dims(Complex_IQ, axis=0)
+
+            # dump the complex sequence into a .mat file
+            filename = filepath.split('/')[-1]
+            this_mat_file_path = os.path.join(mat_path, filename)
+
+            savemat(this_mat_file_path, {'f_sig':Complex_IQ}) 
+
+
+
 
 
 if __name__ == '__main__':
     
-    create_bin()
+    #create_bin()
+
+    convert_bin_to_mat(binary_path, mat_path)
     
     #testing
     """mat_file = '/mnt/nas/nasim/UAV/uav-indoors-processed/m1001/6ft_1_5.mat'
