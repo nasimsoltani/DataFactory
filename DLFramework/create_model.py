@@ -4,8 +4,6 @@ from keras.layers.convolutional import Conv2D, MaxPooling2D, ZeroPadding2D, Conv
 from keras.layers.core import Flatten, Dense, Dropout, Activation, Reshape
 from keras.models import model_from_json#, load_weights
 import os
-from NNs.AlexNet1D import AlexNet1D
-from NNs.ResNet1D import ResNet1D
 
 def create_model(args):
     """ creates a new model, or loads a model structure and inserts weights 
@@ -22,8 +20,10 @@ def create_model(args):
     
     else:
         if args.model_flag == 'alexnet':
+            from NNs.AlexNet1D import AlexNet1D
             model = AlexNet1D(args.slice_size, args.num_classes)
         elif args.model_flag == 'resnet':
+            from NNs.ResNet1D import ResNet1D
             model = ResNet1D(args.slice_size, args.num_classes)
         else:
             print('Error: Model Flag not recognized! Please choose alexnet or resnet.')

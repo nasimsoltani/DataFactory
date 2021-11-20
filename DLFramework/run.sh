@@ -1,13 +1,13 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------------------------------
-python -u /home/nasim/DataFactory/DLCode/top.py \
+python -u /home/nasim/DataFactory/DLFramework/top.py \
 --exp_name $1 \
 --partition_path /home/nasim/dataset/indoor/ \
 --stats_path /home/nasim/dataset/indoor/ \
 --save_path /home/nasim/results/ \
 --model_flag alexnet \
 --contin false \
---json_path /home/nasim/results/cnn1/model_file.json \
+--json_path '' \
 --hdf5_path '' \
 --slice_size 256 \
 --num_classes 7 \
