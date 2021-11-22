@@ -17,3 +17,7 @@ The code takes 3 inputs:
 1. Path to the directory that contains or will contain binary (SigMF) files.
 2. Path to the directory that contains or will contain .mat files.
 3. A switch that indicates we would want to run SigMF to binary conversion or vice-versa.
+
+### Requirements
+For the code to run as it is, all the source files need to be uniquely named and be located flat in a directory without sub-directories.
+The convert_bin_to_mat() function converts all the binary files in the source directory to complex sequences of values with size (1,L), which will later be read by the neural network.
