@@ -14,4 +14,6 @@ This code implements:
 
 The code takes 3 inputs: 
 
-1. 
+1. Path to the directory that contains or will contain binary (SigMF) files.
+2. Path to the directory that contains or will contain .mat files.
+3. A switch that indicates we would want to run SigMF to binary conversion or vice-versa.
