@@ -21,7 +21,9 @@ One can use our framework by running a sequence of 5 Python files.
 
 1. Run: python stride.py “path_to_cloned_directory”
 2. Run: python move_to_antenna.py “path_to_cloned_directory”
-3. Run the main script as follows (this step takes time, we recommend running it in a bash script): python main.py --base_path “path_to_cloned_directory“ train True --test True  --restore_models False --wall_model_path “the_path_to_save_model” --wall_model_json “the_path_to_model_json_file” --wall_model_weight “the_path_to_restore_model_weights” --path_of_entire_image “path_to_images_folder_for_prediction” --epochs 4
+3. Run the main script as follows (this step takes time, we recommend running it in a bash script):
+
+python main.py --base_path “path_to_cloned_directory“ train True --test True  --restore_models False --wall_model_path “the_path_to_save_model” --wall_model_json “the_path_to_model_json_file” --wall_model_weight “the_path_to_restore_model_weights” --path_of_entire_image “path_to_images_folder_for_prediction” --epochs 4
 
 ## Prediction stage:
 
