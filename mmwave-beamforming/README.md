@@ -4,11 +4,15 @@ Dataset#1 (Wood): https://repository.library.northeastern.edu/files/neu:gm80mq01
 
 Dataset#2 (Card box): https://repository.library.northeastern.edu/files/neu:gm80mp942
 
+
+
 Extracting the data from hdf5 files:
 
 One can use “Extract_from_hdf5.py” to extract the images and labels from hdf5 files.
 
 Run: python Extract_from_hdf5.py “path_to_hdf5_file”  “path_to_cloned_directory”
+
+
 
 
 Running the framework: One can use our framework by running a sequence of 5 Python files.
