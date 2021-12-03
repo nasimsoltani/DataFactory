@@ -59,6 +59,9 @@ where **exp1** is variable **$1** in the bash file and represents an optional ex
 - **patience**: If early stopping is set to true, the training stops after the validation accuracy does not improve for this many consecutive epochs.
 - The last two lines specify where you want to write the output log and error log in the result folder.
 
-The `DLFramework` saves the trained model structure (in `model_file.json`) and weights (in `model.hdf5`), saves logs (output logs in `log.out` and error logs `log.err`) and neural network predictions (a `preds.pkl` file) in the experiment results folder specified in `save_path`.
-The slice and accuracy results are reported at the end of `log.out` file.
-
+The `DLFramework` generates the outputs in a folder named as the variable `exp_name` in the path specified in `save_path'. The output files are as the following:
+- `model_file.json` containing the structure of the neural network.
+- `model.hdf5` containing the trained weights.
+- `log.out` containing the recorded outputs.
+- `log.err` containing the recorded errors.
+- `preds.pkl` containing the neural network predictions for each test transmission.
