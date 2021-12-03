@@ -59,6 +59,6 @@ where **exp1** is variable **$1** in the bash file and represents an optional ex
 - **patience**: If early stopping is set to true, the training stops after the validation accuracy does not improve for this many consecutive epochs.
 - The last two lines specify where you want to write the output log and error log in the result folder.
 
-The `DLFramework` saves the trained model structure and weight, saves logs and a `preds.pkl` file in the experiment folder.
+The `DLFramework` saves the trained model structure (in `model_file.json`) and weights (in `model.hdf5`), saves logs and a `preds.pkl` file in the experiment folder.
 The slice and accuracy results are reported at the end of `log.out` file.
 
