@@ -1,13 +1,15 @@
-# RF fingerprinting example
+# Data Factory
 
-## Pre-requisites
+## RF fingerprinting example
+
+### Pre-requisites
 GPU is required.
 The code is tested to work with:
 - Python 2.7.16
 - Keras 2.2.4
 - tensorflow 1.12
 
-## Running
+### Running
 For running an example RF fingerprinting on the UAV dataset 3 steps should be followed:
 
 1. Download the dataset from here: https://genesys-lab.org/hovering-uavs
