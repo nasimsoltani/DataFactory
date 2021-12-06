@@ -13,9 +13,10 @@ This code implements:
 ### Running the code:
 
 The code is run through the `run.sh` script that sends 3 input arguments to `sigmf_converter.py`: 
-  Path to the directory that contains or will contain binary (SigMF) files.
-  Path to the directory that contains or will contain .mat files.
-  A switch that indicates we would want to run SigMF to binary conversion or vice-versa.
+
+    --sigmf_path      # Path to the directory that contains or will contain binary (SigMF) files.
+    --mat_path        # Path to the directory that contains or will contain .mat files.
+    --conversion      # A switch that indicates we would want to run SigMF to mat conversion (sigmf2mat) or vice-versa (mat2sigmf). 
 
 ### Requirements
 For the code to run as it is, all the source files need to be uniquely named and be located flat in a directory without sub-directories.
