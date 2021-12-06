@@ -13,7 +13,6 @@ The code is tested to work with:
 For running an example RF fingerprinting on the UAV dataset 3 steps should be followed:
 
 1. Download the dataset from here: https://genesys-lab.org/hovering-uavs
-2. Modify the SigMF script (with paths on your system), as mentioned in the corresponding `readme.md` to generate `.mat` files out of the downloaded dataset. Run the script.
-3. Modify the preprocessing script (with paths on your system), as mentioned in the corresponding `readme.md` to generate 4 `.pkl` files, which are the input to the deep learning framework. Run the script.
-4. Modify the `run.sh` file inside `DLFramework` (with paths on your system), as mentioned in the corresponding `readme.md`. Run the script.
-
+2. Run the code in SigMF folder with instructions in the corresponding `README.md` to generate `.mat` files out of the downloaded dataset. 
+3. Run the code in the preprocessing folder with instructions in the corresponding `README.md` to generate 4 `.pkl` files, which are the input to the deep learning framework. 
+4. Run the code in the DLFramework folder with instructions in the corresponding `README.md`.
