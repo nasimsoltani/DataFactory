@@ -3,12 +3,12 @@ Signal Metadata Format is a way to form and share datasets in the wireless commu
 
 In SigMF, each recorded signal is stored in the form of interleaved IQ values with desired data type and length in .bin files. Each .bin file is accompanied by a .json file, containing meta-data about the recorded signal. The meta-data include information about the waveform, data collection environment and tools, etc.,
 
-## Description:
+## Code description:
 
 This code implements:
 
-1. Converting from .mat files to the SigMF for sharing purposes.
-2. Converting from .bin files (SigMF) to .mat files for (neural network) processing purposes.
+1. convert_mat_to_sigmf() to convert .mat files to the SigMF for sharing purposes.
+2. convert_bin_to_mat() to convert .bin files (SigMF) to .mat files with size (1,L), where L is the length of each complex signal.
 
 ### Running the code:
 
@@ -18,6 +18,9 @@ The code is run through the `run.sh` script that sends 3 input arguments to `sig
     --mat_path        # Path to the directory that contains or will contain .mat files.
     --conversion      # A switch that indicates we would want to run SigMF to mat conversion (sigmf2mat) or vice-versa (mat2sigmf). 
 
-### Requirements
-For the code to run as it is, all the source files need to be uniquely named and be located flat in a directory without sub-directories.
-The convert_bin_to_mat() function converts all the binary files in the source directory to complex sequences of values with size (1,L), which will later be read by the neural network.
+### Example
+The code can be run as it is to convert dataset shared in the sigmf format here: https://genesys-lab.org/hovering-uavs to .mat files.
+To run the code, the dataset should be download and the appropriate path to the dataset folder should be provided in the `run.sh` script.
+After editing the paths in the `run.sh` script, run `sigmf_converter.py` as:
+        
+        ./run.sh
