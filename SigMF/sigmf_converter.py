@@ -27,9 +27,9 @@ def convert_mat_to_sigmf(sigmf_path, mat_path):
     
     all_mat_list = glob.glob(mat_path+'*')
     
-    for mat_file in all_mat_list:
+    for mat_file in tqdm(all_mat_list):
        
-        print mat_file
+        #print mat_file
         mat_filename = mat_file.split('/')[-1].strip('.mat')
         uav = mat_filename.split('_')[0]
         distance = mat_filename.split('_')[1]
@@ -42,7 +42,8 @@ def convert_mat_to_sigmf(sigmf_path, mat_path):
         len_seq=seq.shape[1]
         binary_array = np.zeros((2*len_seq),dtype=np.float16)
         current_bin_index = 0
-        print seq.shape
+        print seq
+        #print seq.shape
                         
         #----------------------------------------------------------------------- 
                         
