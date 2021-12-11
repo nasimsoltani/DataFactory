@@ -34,6 +34,6 @@ Note that the number of output arguments must be known in advance to avoid error
 
 ## Example: scattering MIMO channel matrix generation
 
-We provide a Python [example script](DataFactory/PyMatlab/matutils.py) that showcases the use of Matlab engine to generate scattering MIMO channel matrices for mmWave bands. This example can be useful to understand the mechanics of the input/output arguments casting from Matlab to Python and vice-versa.
+We provide a Python [example script](matutils.py) that showcases the use of Matlab engine to generate scattering MIMO channel matrices for mmWave bands. This example can be useful to understand the mechanics of the input/output arguments casting from Matlab to Python and vice-versa.
 
 
