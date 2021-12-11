@@ -1,3 +1,5 @@
+This code implements conversion from `.mat` files to `SigMF`, and conversion from `SigMF` to `.mat` files.
+
 ## SigMF
 Signal Metadata Format is a way to form and share datasets in the wireless communications community. https://www.gnuradio.org/grcon/grcon17/presentations/sigmf/Ben-Hilburn-SigMF.pdf
 
@@ -5,7 +7,7 @@ In SigMF, each recorded signal is stored in the form of interleaved IQ values wi
 
 ## Code description:
 
-This code implements:
+This code implements two functions:
 
 1. convert_mat_to_sigmf() to convert .mat files to the SigMF for sharing purposes.
 2. convert_bin_to_mat() to convert .bin files (SigMF) to .mat files with size (1,L), where L is the length of each complex signal.
