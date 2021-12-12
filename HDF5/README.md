@@ -13,7 +13,7 @@ This repository have two code stucture:
 2. `Read_HDF5_Dataset.py`: to read the generated hdf5 files.
 
 
-## Multimodal input folder structure
+## Multimodal input folder structure:
 Sample_folder
 	|
 	|---Sensors
@@ -23,7 +23,7 @@ Sample_folder
 The metadata file can be in a separate folder location as well, the absolute path of the metadata file is given in the hdf5 generation code. A sample folder is uploaded in the repository as `Multimodal_dataset_samples`.
 
 
-### Running the code:
+## Running the code:
 
 The hdf5 generation code is run through the `run_generate.sh` script that sends 4 input arguments to `Generate_HDF5_Dataset.py`: 
 
@@ -37,7 +37,7 @@ The code to read the generated hdf5 file is run through the `run_read.sh` script
     --hdf5_file_path       # Path to the hdf5 file.
 
 
-### Example
+## Example:
 The code can be run as it is to generate multimodal dataset shared in the hdf5 format here: https://genesys-lab.org/hovering-uavs to .hdf files.
 To run the code, the dataset should be download and the appropriate path to the dataset folder should be provided in the `run_generate.sh` and `run_read.sh` script.
 After editing the paths in the `run.sh` script, run appropriate scripts for hdf5 generation or reading as:
