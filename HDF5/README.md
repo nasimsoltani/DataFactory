@@ -7,7 +7,7 @@ In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS
 
 ## Code description:
 
-This repository has two code stucture:
+This repository contains two python file:
 
 1. `Generate_HDF5_Dataset.py`: to generate the hdf5 files from the folder containing multimodal data samples.
 2. `Read_HDF5_Dataset.py`: to read the generated hdf5 file.
