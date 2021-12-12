@@ -38,7 +38,7 @@ The code to read the generated hdf5 file is run through the `run_read.sh` script
 
 
 ## Example:
-The code can be run as it is to generate multimodal dataset shared in the hdf5 format here: https://genesys-lab.org/hovering-uavs to .hdf files.
+The code can be run as it is to generate multimodal dataset shared in the hdf5 format here: https://genesys-lab.org/mldatasets to .hdf files.
 To run the code, the dataset should be download and the appropriate path to the dataset folder should be provided in the `run_generate.sh` and `run_read.sh` script.
 After editing the paths in the `run.sh` script, run appropriate scripts for hdf5 generation or reading as:
 	./run_generate.sh
