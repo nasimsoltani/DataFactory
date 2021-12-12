@@ -13,12 +13,23 @@ This repository contains two python file:
 
 
 ## Multimodal input folder structure:
-
+The supported folder structure
 ```
 Sample_folder
 	|
 	|---Sensors
+		|--Coord
+		   |--Coord.txt
+		|--hero4
+		   |--IMAGE1.jpg	
+		|--hero9
+		   |--IMAGE2.jpg
+		|--ost
+		   |--LIDAR1.pcd
+		|--vlp
+		   |--LIDAR2.pcd
 	|---Label
+		|-GT.txt
 	|---Metadata.txt
 ```
 
