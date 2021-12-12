@@ -3,7 +3,6 @@ This code implements conversion from multimodal data folder to a single file as 
 ## HDF5
 Hierarchical Data Format is a way to form and share different types of data. In this particular repository we concentrate on generating and reading HDF5 files from a folder which contains data from different modalities of the same scenario (or environment).
 
-In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS sensor information with RF ground truth data.
 
 ## Code description:
 
@@ -21,7 +20,7 @@ Sample_folder
 	|---Label
 	|---Metadata.txt
 
-The metadata file can be in a separate folder location as well, the absolute path of the metadata file is given in the hdf5 generation code. A sample folder is uploaded in the repository as `Multimodal_dataset_samples`.
+The metadata file can be in a separate folder location as well, the absolute path of the metadata file is given in the hdf5 generation code. A sample folder is uploaded in the repository as `Multimodal_dataset_samples`. In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS sensor information with RF ground truth data.
 
 
 ## Running the code:
