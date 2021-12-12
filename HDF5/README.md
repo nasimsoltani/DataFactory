@@ -14,11 +14,13 @@ This repository contains two python file:
 
 ## Multimodal input folder structure:
 
+```
 Sample_folder
 	|
 	|---Sensors
 	|---Label
 	|---Metadata.txt
+```
 
 The metadata file can be in a separate folder location as well, the absolute path of the metadata file is given in the hdf5 generation code. A sample folder is uploaded in the repository as `Multimodal_dataset_samples`. In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS sensor information with RF ground truth data.
 
