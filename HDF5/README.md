@@ -13,7 +13,7 @@ This repository contains two python file:
 
 
 ## Multimodal input folder structure:
-The supported folder structure
+The supported folder structure to run the `Generate_HDF5_Dataset.py` as it is, given below:
 ```
 Sample_folder
 	|
