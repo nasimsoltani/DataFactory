@@ -7,10 +7,10 @@ In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS
 
 ## Code description:
 
-This repository have two code stucture:
+This repository has two code stucture:
 
 1. `Generate_HDF5_Dataset.py`: to generate the hdf5 files from the folder containing multimodal data samples.
-2. `Read_HDF5_Dataset.py`: to read the generated hdf5 files.
+2. `Read_HDF5_Dataset.py`: to read the generated hdf5 file.
 
 
 ## Multimodal input folder structure:
@@ -32,14 +32,14 @@ The hdf5 generation code is run through the `run_generate.sh` script that sends 
     --metadata_file_path       # Path to the directory that contains the metadata file name.
     --hdf5_file_name      # The file name of generated HDF5 file.
 
-The code to read the generated hdf5 file is run through the `run_read.sh` script that sends 1 input arguments to `Read_HDF5_Dataset.py`: 
+The code to read the generated hdf5 file is run through the `run_read.sh` script that sends 1 input argument to `Read_HDF5_Dataset.py`: 
 
     --hdf5_file_path       # Path to the hdf5 file.
 
 
 ## Example:
-The code can be run as it is to generate multimodal dataset shared in the hdf5 format here: https://genesys-lab.org/mldatasets to .hdf files.
-To run the code, the dataset should be download and the appropriate path to the dataset folder should be provided in the `run_generate.sh` and `run_read.sh` script.
+The multimodal dataset for real world experiments on mmWave beam selection is shared on: https://genesys-lab.org/mldatasets. This code can be used to generate the .hdf5 files on that dataset.
+To run the code, the dataset should be downloaded and the appropriate path to the dataset folder should be provided in the `run_generate.sh` and `run_read.sh` script.
 After editing the paths in the shell scripts, run appropriate script for hdf5 generation or reading as:
 
 	./run_generate.sh
