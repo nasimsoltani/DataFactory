@@ -1,9 +1,9 @@
-This code implements conversion from heterogeneous files to `HDF5` format.
+This code implements conversion from multimodal data folder to a single file as portable `HDF5` format.
 
 ## HDF5
-Hierarchical Data Format is a way form and share different types of data. In this particular repository we concentrate on generating and reading HDF5 files from a folder which contains different modality data of the same scenario (or environment).
+Hierarchical Data Format is a way to form and share different types of data. In this particular repository we concentrate on generating and reading HDF5 files from a folder which contains data from different modalities of the same scenario (or environment).
 
-In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS sensor information with RF ground truth data. Through the code also include The meta-data include information about the waveform, data collection environment and tools, etc.,
+In this specific example, each folder contains 2 LiDAR, 2 camera image and 1 GPS sensor information with RF ground truth data.
 
 ## Code description:
 
@@ -13,7 +13,7 @@ This repository have two code stucture:
 2. `Read_HDF5_Dataset.py`: to read the generated hdf5 files.
 
 
-## Multimodal input foldet structure
+## Multimodal input folder structure
 Sample_folder
 	|
 	|---Sensors
