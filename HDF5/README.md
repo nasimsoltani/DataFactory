@@ -14,6 +14,7 @@ This repository contains two python file:
 
 
 ## Multimodal input folder structure:
+
 Sample_folder
 	|
 	|---Sensors
