@@ -8,7 +8,9 @@ Preprocessing consists of a series of steps such as:
 2. Calculating mean and standard deviation of the training set, which is later used for z-score standardization.
 3. Creating training and test true labels for each signal.
 
-Before running the preprocessing script, the dataset must be saved in the form of `.mat` files in one folder on the hard storage. For the `.mat` files to be readable by the DLFramework, each signal (transmission) must be resized to (1,L) as a vector of L complex values. Each transmission should be named as devicename_A_B_etc.mat. During preprocessing device labels are infered from the first element before '_'.
+Before running the preprocessing script, the dataset must be saved in the form of `.mat` files in one folder on the hard storage. For the `.mat` files to be readable by the DLFramework, each signal (transmission) must be resized to (1,L) as a vector of L complex values. During preprocessing, device labels are read from the meta-data files in the SigMF directory.
+
+<!--- Each transmission should be named as devicename_A_B_etc.mat. During preprocessing device labels are infered from the first element before '_'. --->
 
 The preprocessing step generates 4 pickle files:
 
