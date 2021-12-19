@@ -7,6 +7,7 @@ import pickle
 from collections import defaultdict
 from multiprocessing import Pool, cpu_count
 import numpy as np
+import json
 
 """ This script takes the mat path and generates 4 dataset pickle files that are inputs to the ML_code 
     Please note that this script contains an example script for generating Set1 training/val/test sets
@@ -14,8 +15,9 @@ import numpy as np
 
 """ Create a pkl_files folder in your UAV-TVT folder and adjust the paths below before running this script """
 
-mat_address = '/home/nasim/UAV-TVT/mat_files/'
-dataset_address = '/home/nasim/UAV-TVT/pkl_files/exp1/'  
+sigmf_address = '/home/nasim/Downloads/neu_m046p309d/UAV-Sigmf-float16/'
+mat_address = '/home/nasim/Downloads/neu_m046p309d/mat_files/'
+dataset_address = '/home/nasim/Downloads/neu_m046p309d/pkl_files/exp1/'  
 
 def helper(file):
     data = loadmat(file,struct_as_record=True)
@@ -43,7 +45,7 @@ def stats(file_list):
     Qstd = np.sqrt(above / cnt)
     return Imean, Istd, Qmean, Qstd, total_ex_len
 
-def create_dataset(mat_address,dataset_address):
+def create_dataset(mat_address, dataset_address, sigmf_address):
     if not os.path.isdir(dataset_address):
         os.mkdir(dataset_address)
 
@@ -72,7 +74,15 @@ def create_dataset(mat_address,dataset_address):
     print("Creating label pickle file:")
     all_mat_list = train_list + val_list + test_list
     for file in tqdm(all_mat_list):
-        label_list[file]= file.split('/')[-1].split('_')[0]
+        #label_list[file]= file.split('/')[-1].split('_')[0]
+        # read the label from the corresponding meta-data file (slower than file name)
+        json_name = file.split('/')[-1].split('.')[0]+'.json'
+        json_path = os.path.join(sigmf_address, json_name)
+        with open (json_path, 'r') as handle:
+            meta = json.load(handle)
+        label[file] = device_list.index(meta['annotations']['transmitter']['core:UAV'])
+
+
     with open (dataset_address+'label.pkl','wb') as handle:
         pickle.dump(label_list,handle)
 
@@ -114,4 +124,4 @@ def create_dataset(mat_address,dataset_address):
     print(dataset_address)
 
 if __name__ == "__main__": 
-    create_dataset(mat_address,dataset_address)
+    create_dataset(mat_address, dataset_address, sigmf_address)
