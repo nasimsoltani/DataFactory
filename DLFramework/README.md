@@ -1,5 +1,6 @@
 
-### DLFramework
+### DLFramework 
+(To be run after Pre-processing API)
 
 The DLFramework takes the path to the 4 .pkl files generated from the preprocessing step and trains and tests the neural network with the parameters that the user specifies. The toppest file in the framework is `top.py` which calls training and test functions.
 
