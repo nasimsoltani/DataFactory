@@ -8,16 +8,10 @@ from collections import defaultdict
 from multiprocessing import Pool, cpu_count
 import numpy as np
 import json
+import argparse
 
-""" This script takes the mat path and generates 4 dataset pickle files that are inputs to the ML_code 
-    Please note that this script contains an example script for generating Set1 training/val/test sets
-    for CNN1 and needs adjustment in the commented parts for other CNNs in the paper."""
+""" This script takes the mat path and generates 4 dataset pickle files that are inputs to the MLFramework""" 
 
-""" Create a pkl_files folder in your UAV-TVT folder and adjust the paths below before running this script """
-
-sigmf_address = '/home/nasim/Downloads/neu_m046p309d/UAV-Sigmf-float16/'
-mat_address = '/home/nasim/Downloads/neu_m046p309d/mat_files/'
-dataset_address = '/home/nasim/Downloads/neu_m046p309d/pkl_files/exp1/'  
 
 def helper(file):
     data = loadmat(file,struct_as_record=True)
@@ -45,12 +39,10 @@ def stats(file_list):
     Qstd = np.sqrt(above / cnt)
     return Imean, Istd, Qmean, Qstd, total_ex_len
 
-def create_dataset(mat_address, dataset_address, sigmf_address):
-    if not os.path.isdir(dataset_address):
-        os.mkdir(dataset_address)
-
-    device_list = ['uav1','uav2','uav3','uav4','uav5','uav6','uav7']
-    distance_list = ['6ft','9ft','12ft','15ft']
+def create_dataset(mat_address, pkl_path, sigmf_address, distance_list, device_list, symbolic_transmitter_key):
+    
+    if not os.path.isdir(pkl_path):
+        os.mkdir(pkl_path)
 
     train_list = []
     val_list = []
@@ -59,8 +51,10 @@ def create_dataset(mat_address, dataset_address, sigmf_address):
 
     print("Creating train/val/test partitions:")
         
-    # Form the train and validation sets     
+    # Form the train, validation, and test sets     
     
+    # if your mat files are following the format of Device_Distance_anything_else.mat then use these two nested for loop
+    # these for loops partition each Device and distance into 70%, 10%, and 20% for training, validation, and test
     for device in tqdm(device_list):
         for distance in tqdm(distance_list):
             all_files = glob.glob(mat_address + device+'_'+distance+'_'+'*')
@@ -69,21 +63,31 @@ def create_dataset(mat_address, dataset_address, sigmf_address):
             val_list += all_files[int(0.7*len(all_files)):int(0.8*len(all_files))]
             test_list += all_files[int(0.8*len(all_files)):]
 
-            
+    # if the Device (transmitter) and Distance are not mentioned in the file name, uncomment and use this part:
+    # This part shuffles all mat files and randomly partitions them into 70%, 10%, and 20% for training, validation, and test
+    """all_files = glob.glob(mat_address + '*')
+    random.shuffle(all_files)
+    train_list += all_files[:int(0.7*len(all_files))]
+    val_list += all_files[int(0.7*len(all_files)):int(0.8*len(all_files))]
+    test_list += all_files[int(0.8*len(all_files)):]"""
+
     # create labels:
     print("Creating label pickle file:")
     all_mat_list = train_list + val_list + test_list
     for file in tqdm(all_mat_list):
+
+        # read the label from the file name:
         #label_list[file]= file.split('/')[-1].split('_')[0]
+        
         # read the label from the corresponding meta-data file (slower than file name)
         json_name = file.split('/')[-1].split('.')[0]+'.json'
         json_path = os.path.join(sigmf_address, json_name)
         with open (json_path, 'r') as handle:
             meta = json.load(handle)
-        label[file] = device_list.index(meta['annotations']['transmitter']['core:UAV'])
+        label[file] = device_list.index(meta['annotations']['transmitter']['core:'+symbolic_transmitter_key])
 
 
-    with open (dataset_address+'label.pkl','wb') as handle:
+    with open (pkl_path+'label.pkl','wb') as handle:
         pickle.dump(label_list,handle)
 
     # partition 
@@ -94,7 +98,7 @@ def create_dataset(mat_address, dataset_address, sigmf_address):
     partition['val']= val_list
     print("lengths of partitions are:")
     print len(train_list),len(val_list),len(test_list)
-    with open (dataset_address+'partition.pkl','wb') as handle:
+    with open (pkl_path+'partition.pkl','wb') as handle:
         pickle.dump(partition,handle)
 
     # device_ids
@@ -102,7 +106,7 @@ def create_dataset(mat_address, dataset_address, sigmf_address):
     device_ids={}
     for element in tqdm(device_list):
         device_ids[element] = device_list.index(element)
-    with open (dataset_address+'device_ids.pkl','wb') as handle:
+    with open (pkl_path+'device_ids.pkl','wb') as handle:
         pickle.dump(device_ids,handle)
 
     # stats
@@ -118,10 +122,32 @@ def create_dataset(mat_address, dataset_address, sigmf_address):
     'mean':np.array([Imean,Qmean]),
     'std':np.array([Istd,Qstd])
     }
-    with open (dataset_address+'stats.pkl','wb') as handle:
+    with open (pkl_path+'stats.pkl','wb') as handle:
         pickle.dump(stats_dict,handle)
     print("Dataset successfully generated in: ")
-    print(dataset_address)
+    print(pkl_path)
 
-if __name__ == "__main__": 
-    create_dataset(mat_address, dataset_address, sigmf_address)
+if __name__ == '__main__':
+    
+    parser = argparse.ArgumentParser(description = 'Preprocessing script',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    parser.add_argument('--sigmf_address', default='', type=str, help='Please enter the path to the directory containing Signal meta-data files. This path will be used to pick proper label (transmitter ID) for each transmission.')
+    parser.add_argument('--mat_address', default='', type=str, help='The path where you keep the .mat files (dataset)')
+    parser.add_argument('--pkl_path', default='', type=str, help='The path where the pkl files will be generated.')
+    parser.add_argument('--symbolic_class_name', default='', type=str, help='Symbolic class name, for example Tx, or uav.')
+    parser.add_argument('--num_classes', default=7, type=int, help='Number of classes (transmitters).')
+    parser.add_argument('--distance_list', default='6ft,9ft,12ft,15ft', type=str, help='List of distances.')
+    parser.add_argument('--symbolic_transmitter_sigmf_key', default='UAV', type=str, help='The key in Sigmf meta-data, in transmitter key whose value is symbolic transmitter')
+
+    args = parser.parse_args()
+    
+    # create the device list: (transmitter list)
+    device_list = []
+    for i in range(1 , args.num_classes+1):
+        device_list.append(args.symbolic_class_name+str(i))
+
+    # create distance list:
+    distance_list = args.distance_list.split(',')
+
+    create_dataset(args.mat_address, args.pkl_path, args.sigmf_address, distance_list, device_list, args.symbolic_transmitter_sigmf_key)
+
