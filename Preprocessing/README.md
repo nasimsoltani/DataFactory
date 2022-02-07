@@ -16,14 +16,14 @@ Naming format: It is recommended that the .mat files follow the naming conventio
 
 The preprocessing script is run through a bash script with the following arguments.
 
-python -u ./preprocess.py \
+	python -u ./preprocess.py \
 	--sigmf_address /home/nasim/Downloads/neu_m046p309d/UAV-Sigmf-float16/ \
 	--mat_address /home/nasim/Downloads/neu_m046p309d/mat_files/ \
-  --pkl_path /home/nasim/Downloads/neu_m046p309d/pkls_new/ \
-  --symbolic_class_name 'uav' \
-  --num_classes 7 \
-  --distance_list '6ft,9ft,12ft,15ft' \
-  --symbolic_transmitter_sigmf_key 'UAV' \
+ 	--pkl_path /home/nasim/Downloads/neu_m046p309d/pkls_new/ \
+	--symbolic_class_name 'uav' \
+	--num_classes 7 \
+  	--distance_list '6ft,9ft,12ft,15ft' \
+  	--symbolic_transmitter_sigmf_key 'UAV' \
 	
 - python -u path_to_preprocess.py
 - **sigmf_address**: Path where the meta-data is stored. This path is used in the code to associate the label (transmitter symbolic name) with each transmission.
