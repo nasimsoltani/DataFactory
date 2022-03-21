@@ -30,12 +30,12 @@ def stats(file_list):
         Qtotal += Q_tmp
         Qtotal_square += Q_tmp_square
         total_ex_len += ex_len
-    cnt = n * total_ex_len * 1 
+    cnt = total_ex_len  
     Imean = Itotal / cnt
-    above = Itotal_square - 2 * Imean * Itotal + Imean ** 2
+    above = Itotal_square - 2 * Imean * Itotal + cnt * (Imean**2)
     Istd = np.sqrt(above / cnt)
     Qmean = Qtotal / cnt
-    above = Qtotal_square - 2 * Qmean * Qtotal + Qmean ** 2
+    above = Qtotal_square - 2 * Qmean * Qtotal + cnt * (Qmean**2)
     Qstd = np.sqrt(above / cnt)
     return Imean, Istd, Qmean, Qstd, total_ex_len
 
